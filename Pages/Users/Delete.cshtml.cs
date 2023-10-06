@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ProduitsPT.Data;
 using ProduitsPT.Models;
 
-namespace ProduitsPT.Pages.Products
+namespace ProduitsPT.Pages.Users
 {
     public class DeleteModel : PageModel
     {
@@ -20,40 +20,40 @@ namespace ProduitsPT.Pages.Products
         }
 
         [BindProperty]
-      public Product Product { get; set; } = default!;
+      public User User { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null || _context.Users == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product.FirstOrDefaultAsync(m => m.Id == id);
+            var user = await _context.Users.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (product == null)
+            if (user == null)
             {
                 return NotFound();
             }
             else 
             {
-                Product = product;
+                User = user;
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null || _context.Users == null)
             {
                 return NotFound();
             }
-            var product = await _context.Product.FindAsync(id);
+            var user = await _context.Users.FindAsync(id);
 
-            if (product != null)
+            if (user != null)
             {
-                Product = product;
-                _context.Product.Remove(Product);
+                User = user;
+                _context.Users.Remove(User);
                 await _context.SaveChangesAsync();
             }
 

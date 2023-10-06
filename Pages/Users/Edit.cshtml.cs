@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using ProduitsPT.Data;
 using ProduitsPT.Models;
 
-namespace ProduitsPT.Pages.Products
+namespace ProduitsPT.Pages.Users
 {
     public class EditModel : PageModel
     {
@@ -21,22 +21,21 @@ namespace ProduitsPT.Pages.Products
         }
 
         [BindProperty]
-        public Product Product { get; set; } = default!;
+        public User User { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null || _context.Users == null)
             {
                 return NotFound();
             }
 
-            var product =  await _context.Product.FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
+            var user =  await _context.Users.FirstOrDefaultAsync(m => m.Id == id);
+            if (user == null)
             {
                 return NotFound();
             }
-            Product = product;
-           ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            User = user;
             return Page();
         }
 
@@ -49,7 +48,7 @@ namespace ProduitsPT.Pages.Products
                 return Page();
             }
 
-            _context.Attach(Product).State = EntityState.Modified;
+            _context.Attach(User).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +56,7 @@ namespace ProduitsPT.Pages.Products
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(Product.Id))
+                if (!UserExists(User.Id))
                 {
                     return NotFound();
                 }
@@ -70,9 +69,9 @@ namespace ProduitsPT.Pages.Products
             return RedirectToPage("./Index");
         }
 
-        private bool ProductExists(int id)
+        private bool UserExists(int id)
         {
-          return (_context.Product?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

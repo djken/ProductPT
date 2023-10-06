@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using ProduitsPT.Models;
 
-namespace ProduitsPT.Pages.Products
+namespace ProduitsPT.Pages.Users
 {
     public class CreateModel : PageModel
     {
@@ -16,23 +15,22 @@ namespace ProduitsPT.Pages.Products
 
         public IActionResult OnGet()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 
         [BindProperty]
-        public Product Product { get; set; } = default!;
+        public User User { get; set; } = default!;
 
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            //if (!ModelState.IsValid || _context.Product == null || Product == null)
+            //if (!ModelState.IsValid || _context.Users == null || User == null)
             //  {
-            //      return Page();
-            //  }
+            //return Page();
+            //}
 
-            _context.Product.Add(Product);
+            _context.Users.Add(User);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

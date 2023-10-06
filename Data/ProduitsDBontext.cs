@@ -11,6 +11,8 @@ namespace ProduitsPT.Data
         }
 
         public DbSet<Product> Product { get; set; } = default!;
+        public DbSet<User> Users { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
